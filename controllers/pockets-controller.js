@@ -28,7 +28,27 @@ const getPocket = async (req, res) => {
   }
 };
 
+const addPocket = async (req, res) => {
+  try {
+    if (!req.body.name || !req.body.notes) {
+      return res.status(400).send("Please fill in all fields");
+    }
+    const newPocket = {
+      name: req.body.name,
+      notes: req.body.notes,
+    };
+    const result = await knex("pockets").insert(newPocket);
+    const createdPocket = await knex("pockets")
+      .where({ id: result[0] })
+      .first();
+    res.status(201).send(createdPocket);
+  } catch (err) {
+    res.status(500).send(`Unable to create a new pocket: ${err}`);
+  }
+};
+
 module.exports = {
   getAllPockets,
   getPocket,
+  addPocket,
 };

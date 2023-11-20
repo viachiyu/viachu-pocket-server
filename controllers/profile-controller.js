@@ -1,4 +1,5 @@
 const knex = require("knex")(require("../knexfile"));
+const bcrypt = require("bcryptjs");
 
 const getAllProfilesByPocketId = async (req, res) => {
   const pocketId = req.params.pocketId;
@@ -50,7 +51,33 @@ const getProfileByIdOfPocketId = async (req, res) => {
   }
 };
 
+const addProfile = async (req, res) => {
+  try {
+    if (!req.body.email || !req.body.name || !req.body.password) {
+      return res
+        .status(400)
+        .send("Please ensure you have provided all information necessary");
+    }
+    const hashedPassword = bcrypt.hashSync(req.body.password);
+    const newProfile = {
+      email: req.body.email,
+      name: req.body.name,
+      password: hashedPassword,
+      payment_info: req.body.payment_info,
+    };
+
+    const result = await knex("profile").insert(newProfile);
+    const createdProfile = await knex("profile")
+      .where({ id: result[0] })
+      .first();
+    res.status(201).send(createdProfile);
+  } catch (err) {
+    res.status(500).send(`Unable to create new profile: ${err}`);
+  }
+};
+
 module.exports = {
   getAllProfilesByPocketId,
   getProfileByIdOfPocketId,
+  addProfile,
 };

@@ -28,6 +28,34 @@ const getExpenseByPocketId = async (req, res) => {
   }
 };
 
+// const addExpense = async (req, res) => {
+//   try {
+//     if (
+//       !req.body.name ||
+//       !req.body.date ||
+//       !req.body.total ||
+//       !req.body.headcount ||
+//       !req.body.category ||
+//       !req.body.profile_id
+//     ) {
+//       return res.status(400).send("Please fill in all fields");
+//     }
+//     const newExpense = {
+//       name: req.body.name,
+//       date: req.body.date,
+//       total_expense: req.body.total,
+//       headcount: ,
+//     };
+//     const result = await knex("expense").insert(newExpense);
+//     const createdExpense = await knex("expense")
+//       .where({ id: result[0] })
+//       .first();
+//     res.status(201).send(createdExpense);
+//   } catch (err) {
+//     res.status(500).send(`Unable to create a new expense: ${err}`);
+//   }
+// };
+
 module.exports = {
   getAllExpensesByPocketId,
   getExpenseByPocketId,

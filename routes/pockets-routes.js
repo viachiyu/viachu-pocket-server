@@ -3,7 +3,10 @@ const pocketsController = require("../controllers/pockets-controller");
 const profileController = require("../controllers/profile-controller");
 const expenseController = require("../controllers/expense-controller");
 
-router.route("/").get(pocketsController.getAllPockets);
+router
+  .route("/")
+  .get(pocketsController.getAllPockets)
+  .post(pocketsController.addPocket);
 
 router.route("/:pocketId").get(pocketsController.getPocket);
 
@@ -22,4 +25,5 @@ router
 router
   .route("/:pocketId/expenses/:expenseId")
   .get(expenseController.getExpenseByPocketId);
+
 module.exports = router;
