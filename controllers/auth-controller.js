@@ -33,22 +33,18 @@ const profileLogIn = async (req, res) => {
   if (!email || !password) {
     return res.status(404).send("Please enter the required fields");
   }
-  // Find the user
-  // TODO: test if this is case insenstive
-  const user = await knex("users").where({ email: email }).first();
-  if (!user) {
+  const profile = await knex("profile").where({ email: email }).first();
+  if (!profile) {
     return res.status(400).send("Invalid email");
   }
 
-  const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+  const isPasswordCorrect = bcrypt.compareSync(password, profile.password);
 
-  // Check the password
   if (!isPasswordCorrect) {
     return res.status(400).send("Invalid password");
   }
-  // Generate a token
   const token = jwt.sign(
-    { id: user.id, email: user.email },
+    { id: profile.id, email: profile.email },
     process.env.JWT_KEY,
     { expiresIn: "24h" }
   );

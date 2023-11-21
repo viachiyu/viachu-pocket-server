@@ -15,7 +15,7 @@ app.use((_req, _res, next) => {
 });
 
 app.use("/pockets", pocketsRoutes);
-app.use("/profiles", authRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
