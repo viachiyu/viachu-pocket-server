@@ -2,6 +2,9 @@ const router = require("express").Router();
 const pocketsController = require("../controllers/pockets-controller");
 const profileController = require("../controllers/profile-controller");
 const expenseController = require("../controllers/expense-controller");
+const authenticate = require("../middleware/authenticate");
+
+router.use(authenticate);
 
 router
   .route("/")
