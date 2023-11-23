@@ -8,7 +8,7 @@ exports.seed = async function (knex) {
     {
       id: 1,
       name: "Uber to the Strip",
-      date: "16-05-23",
+      date: "23-05-16",
       total_expense: 90,
       split_even: true,
       headcount: 5,
@@ -20,7 +20,7 @@ exports.seed = async function (knex) {
     {
       id: 2,
       name: "Uber to airbnb",
-      date: "17-05-23",
+      date: "23-05-17",
       total_expense: 80,
       split_even: true,
       headcount: 4,
@@ -32,7 +32,7 @@ exports.seed = async function (knex) {
     {
       id: 3,
       name: "Drinks at Bar",
-      date: "18-05-23",
+      date: "23-05-18",
       total_expense: 44,
       split_even: true,
       headcount: 2,
@@ -44,7 +44,7 @@ exports.seed = async function (knex) {
     {
       id: 4,
       name: "SkyDiving",
-      date: "20-05-23",
+      date: "23-05-20",
       total_expense: 888,
       split_even: true,
       headcount: 4,
@@ -56,7 +56,7 @@ exports.seed = async function (knex) {
     {
       id: 5,
       name: "KBBQ",
-      date: "21-05-23",
+      date: "23-05-21",
       total_expense: 400,
       split_even: true,
       headcount: 5,
@@ -68,7 +68,7 @@ exports.seed = async function (knex) {
     {
       id: 6,
       name: "NYC Airbnb!",
-      date: "01-09-23",
+      date: "23-09-01",
       total_expense: 1200,
       split_even: true,
       headcount: 4,

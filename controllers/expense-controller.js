@@ -5,11 +5,29 @@ const getAllExpensesByPocketId = async (req, res) => {
   try {
     const expenseList = await knex("expense")
       .where("pocket_id", pocketId)
-      .select("*");
-
+      .select("expense.*", "profile.name as profile_name")
+      .leftJoin("profile", "expense.profile_id", "profile.id");
     res.status(200).json(expenseList);
   } catch (error) {
-    res.status(400).send(`Error retrieving inventories: ${error}`);
+    res.status(400).send(`Error retrieving expenses: ${error}`);
+  }
+};
+
+const getExpensesProfiles = async (req, res) => {
+  const pocketId = req.params.pocketId;
+  try {
+    const expensesProfiles = await knex("expense_profile")
+      .join("profile", "expense_profile.profile_id", "profile.id")
+      .join("expense", "expense_profile.expense_id", "expense.id")
+      .where("expense.pocket_id", pocketId)
+      .select(
+        "profile.name as profile_name",
+        "expense.id as expense_id",
+        "expense.single_expense"
+      );
+    res.status(200).json(expensesProfiles);
+  } catch (error) {
+    res.status(400).send(`Error retrieving expenses profiles: ${error}`);
   }
 };
 
@@ -59,4 +77,5 @@ const getExpenseByPocketId = async (req, res) => {
 module.exports = {
   getAllExpensesByPocketId,
   getExpenseByPocketId,
+  getExpensesProfiles,
 };

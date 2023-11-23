@@ -26,7 +26,12 @@ router
   .get(expenseController.getAllExpensesByPocketId);
 
 router
+  .route("/:pocketId/expensesprofiles")
+  .get(expenseController.getExpensesProfiles);
+
+router
   .route("/:pocketId/expenses/:expenseId")
+
   .get(expenseController.getExpenseByPocketId);
 
 module.exports = router;
