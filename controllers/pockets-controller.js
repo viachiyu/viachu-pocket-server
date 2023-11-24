@@ -3,7 +3,6 @@ const knex = require("knex")(require("../knexfile"));
 const getAllPockets = async (req, res) => {
   try {
     const data = await knex("pockets");
-    // .where({ id: req.user_profile_id }) ;
     res.status(200).json(data);
   } catch (err) {
     res.status(400).send(`Error retrieving pockets: ${err}`);

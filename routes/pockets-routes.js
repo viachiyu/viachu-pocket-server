@@ -31,7 +31,6 @@ router
 
 router
   .route("/:pocketId/expenses/:expenseId")
-
   .get(expenseController.getExpenseByPocketId);
 
 module.exports = router;

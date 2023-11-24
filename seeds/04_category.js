@@ -5,10 +5,10 @@
 exports.seed = async function (knex) {
   await knex("category").del();
   await knex("category").insert([
-    { id: 1, name: "uber" },
-    { id: 2, name: "drinks" },
-    { id: 3, name: "food" },
-    { id: 4, name: "activities" },
-    { id: 5, name: "accommodation" },
+    { id: 1, name: "Transport" },
+    { id: 2, name: "Drinks" },
+    { id: 3, name: "Food" },
+    { id: 4, name: "Activities" },
+    { id: 5, name: "Accommodation" },
   ]);
 };
