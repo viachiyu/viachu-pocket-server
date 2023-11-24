@@ -2,6 +2,7 @@ const knex = require("knex")(require("../knexfile"));
 const jwt = require("jsonwebtoken");
 
 const authenticate = async (req, res, next) => {
+  console.log(req.body);
   if (!req.headers.authorization) {
     return res.status(401).send("Please login");
   }

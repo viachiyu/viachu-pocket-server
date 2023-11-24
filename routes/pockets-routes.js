@@ -25,6 +25,12 @@ router
   .route("/:pocketId/expenses")
   .get(expenseController.getAllExpensesByPocketId);
 
+router.route("/:pocketId/expenses/add").post(expenseController.addExpense);
+
+router
+  .route("/:pocketId/expense_profile/add")
+  .post(expenseController.addExpenseProfile);
+
 router
   .route("/:pocketId/expensesprofiles")
   .get(expenseController.getExpensesProfiles);

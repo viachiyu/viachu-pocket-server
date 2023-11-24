@@ -46,36 +46,56 @@ const getExpenseByPocketId = async (req, res) => {
   }
 };
 
-// const addExpense = async (req, res) => {
-//   try {
-//     if (
-//       !req.body.name ||
-//       !req.body.date ||
-//       !req.body.total ||
-//       !req.body.headcount ||
-//       !req.body.category ||
-//       !req.body.profile_id
-//     ) {
-//       return res.status(400).send("Please fill in all fields");
-//     }
-//     const newExpense = {
-//       name: req.body.name,
-//       date: req.body.date,
-//       total_expense: req.body.total,
-//       headcount: ,
-//     };
-//     const result = await knex("expense").insert(newExpense);
-//     const createdExpense = await knex("expense")
-//       .where({ id: result[0] })
-//       .first();
-//     res.status(201).send(createdExpense);
-//   } catch (err) {
-//     res.status(500).send(`Unable to create a new expense: ${err}`);
-//   }
-// };
+const addExpense = async (req, res) => {
+  try {
+    const {
+      total_expense,
+      date,
+      name,
+      profile_id,
+      category_id,
+      single_expense,
+      pocket_id,
+      headcount,
+    } = req.body;
+    if (!total_expense || !date || !name) {
+      return res.status(400).send("Please fill in all fields");
+    }
+
+    const [expenseId] = await knex("expense").insert({
+      total_expense,
+      date,
+      name: name,
+      profile_id: profile_id,
+      category_id: category_id,
+      split_even: true,
+      single_expense,
+      pocket_id,
+      headcount,
+    });
+
+    res.status(200).send({ ...req.body, id: expenseId });
+  } catch (error) {
+    res.status(500).send(`Unable to create a new expense: ${error}`);
+  }
+};
+
+const addExpenseProfile = async (req, res) => {
+  try {
+    const { involved, expense_id } = req.body;
+    const expenseProfileData = req.body;
+
+    await knex("expense_profile").insert(expenseProfileData);
+    res.status(200).send({ ...req.body, id: expense_id });
+  } catch (error) {
+    res.status(500).send(`Unable to add expense to profile(s): ${error}`);
+  }
+};
 
 module.exports = {
   getAllExpensesByPocketId,
   getExpenseByPocketId,
   getExpensesProfiles,
+  addExpense,
+  addExpenseProfile,
 };
