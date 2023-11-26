@@ -29,7 +29,6 @@ const getProfileByIdOfPocketId = async (req, res) => {
       .where("profile_id", profileId)
       .select("profile_id")
       .first();
-    console.log(selectProfileId);
 
     const profile = await knex("profile").where(
       "id",
@@ -50,7 +49,24 @@ const getProfileByIdOfPocketId = async (req, res) => {
   }
 };
 
+const getLoggedInUserProfile = async (req, res) => {
+  const userEmail = req.user_email;
+
+  try {
+    const profile = await knex("profile").where("email", userEmail).first();
+
+    if (profile) {
+      res.status(200).json(profile);
+    } else {
+      res.status(404).send(`Profile with email ${userEmail} not found`);
+    }
+  } catch (err) {
+    res.status(500).send(`Error retrieving profile: ${err}`);
+  }
+};
+
 module.exports = {
   getAllProfilesByPocketId,
   getProfileByIdOfPocketId,
+  getLoggedInUserProfile,
 };

@@ -15,6 +15,7 @@ const authenticate = async (req, res, next) => {
 
     const profile = await knex("profile").where({ id: req.profile_id }).first();
     delete profile.password;
+    req.user_email = profile.email;
     req.user_profile = profile;
 
     next();

@@ -18,6 +18,10 @@ router
   .get(profileController.getAllProfilesByPocketId);
 
 router
+  .route("/:pocketId/loggedInProfile")
+  .get(profileController.getLoggedInUserProfile);
+
+router
   .route("/:pocketId/profiles/:profileId")
   .get(profileController.getProfileByIdOfPocketId);
 

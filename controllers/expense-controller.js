@@ -82,7 +82,7 @@ const addExpense = async (req, res) => {
 
 const addExpenseProfile = async (req, res) => {
   try {
-    const { involved, expense_id } = req.body;
+    const { expense_id } = req.body;
     const expenseProfileData = req.body;
 
     await knex("expense_profile").insert(expenseProfileData);
