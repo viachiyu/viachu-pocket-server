@@ -1,5 +1,14 @@
 const knex = require("knex")(require("../knexfile"));
 
+const getAllProfiles = async (req, res) => {
+  try {
+    const data = await knex("profile");
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(400).send(`Error retrieving profiles: ${err}`);
+  }
+};
+
 const getAllProfilesByPocketId = async (req, res) => {
   const pocketId = req.params.pocketId;
   try {
@@ -66,6 +75,7 @@ const getLoggedInUserProfile = async (req, res) => {
 };
 
 module.exports = {
+  getAllProfiles,
   getAllProfilesByPocketId,
   getProfileByIdOfPocketId,
   getLoggedInUserProfile,

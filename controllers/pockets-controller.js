@@ -47,8 +47,25 @@ const addPocket = async (req, res) => {
   }
 };
 
+const addPocketProfile = async (req, res) => {
+  try {
+    const { pocket_id, profile_id } = req.body;
+
+    const result = await knex("pockets_profile").insert({
+      pocket_id,
+      profile_id,
+    });
+
+    res.status(201).send(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Unable to associate pocket with profile: ${err}`);
+  }
+};
+
 module.exports = {
   getAllPockets,
   getPocket,
   addPocket,
+  addPocketProfile,
 };

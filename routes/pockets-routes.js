@@ -11,7 +11,14 @@ router
   .get(pocketsController.getAllPockets)
   .post(pocketsController.addPocket);
 
-router.route("/:pocketId").get(pocketsController.getPocket);
+router.route("/pocket_profile").post(pocketsController.addPocketProfile);
+
+router.route("/profiles").get(profileController.getAllProfiles);
+
+router
+  .route("/:pocketId")
+  .get(pocketsController.getPocket)
+  .post(pocketsController.addPocketProfile);
 
 router
   .route("/:pocketId/profiles")
