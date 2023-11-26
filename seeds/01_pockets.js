@@ -8,7 +8,7 @@ exports.seed = async function (knex) {
     {
       id: 1,
       name: "Vegas 23",
-      notes: "summer trip to vegas with the homies",
+      notes: "summer trip with the homies",
     },
     {
       id: 2,
