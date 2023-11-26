@@ -18,7 +18,8 @@ router.route("/profiles").get(profileController.getAllProfiles);
 router
   .route("/:pocketId")
   .get(pocketsController.getPocket)
-  .post(pocketsController.addPocketProfile);
+  .post(pocketsController.addPocketProfile)
+  .delete(pocketsController.deletePocket);
 
 router
   .route("/:pocketId/profiles")
@@ -48,6 +49,8 @@ router
 
 router
   .route("/:pocketId/expenses/:expenseId")
-  .get(expenseController.getExpenseByPocketId);
+  .get(expenseController.getExpenseByPocketId)
+  .put(expenseController.updateExpense)
+  .delete(expenseController.deleteExpense);
 
 module.exports = router;

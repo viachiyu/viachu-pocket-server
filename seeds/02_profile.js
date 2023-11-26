@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
       id: 1,
       name: "Lia",
       email: "lia@gmail.com",
-      // lialia (hashed password)
+      // password:"lialia",
       password: "$2y$10$2K/vjLxRrvFczkQ5CcKzYunopVMtIIGuEcWVzRQMconET0ENojbQG",
       payment_info: "lia@gmail.com",
       total_owed: 798,
@@ -19,7 +19,8 @@ exports.seed = async function (knex) {
       id: 2,
       name: "Mark",
       email: "mark@gmail.com",
-      password: "mcsteamy",
+      // password: "mcsteamy",
+      password: "$2y$10$k5fFfrvk6dxcI61p2zR.0.Nv/xtbQZOAoBwa5hsmrIB3CnJPW9iN6",
       payment_info: "mark@gmail.com",
       total_owed: 240,
       total_debt: 240,

@@ -94,10 +94,80 @@ const addExpenseProfile = async (req, res) => {
   }
 };
 
+const updateExpense = async (req, res) => {
+  try {
+    if (
+      !req.body.id ||
+      !req.body.total_expense ||
+      !req.body.date ||
+      !req.body.name ||
+      !req.body.profile_id ||
+      !req.body.category_id
+    ) {
+      return res
+        .status(400)
+        .send("Please ensure you have provided all information necessary");
+    }
+    const allExpenses = await knex("expense");
+    let matchingExpense = false;
+    allExpenses.forEach((expense) => {
+      if (expense.id === req.body.id) {
+        return (matchingExpense = true);
+      }
+    });
+    if (!matchingExpense) {
+      return res
+        .status(400)
+        .send("The Expense ID provided does not match. Please try again");
+    }
+    const updatedRecord = await knex("expense")
+      .where({ id: req.params.expenseId })
+      .update(req.body);
+    if (updatedRecord === 0) {
+      return res
+        .status(404)
+        .send(`Expense with ID ${req.params.expenseId} was not found`);
+    }
+    const updatedExpenses = await knex("expense").where({
+      id: req.params.expenseId,
+    });
+    res.status(200).send(updatedExpenses[0]);
+  } catch (err) {
+    res
+      .status(500)
+      .send(`Unable to update Expense with ID ${req.params.id}: ${err}`);
+    console.error(err);
+  }
+};
+
+const deleteExpense = async (req, res) => {
+  const { expenseId } = req.params;
+
+  try {
+    await knex("expense_profile").where({ expense_id: expenseId }).del();
+
+    const result = await knex("expense").where({ id: expenseId }).del();
+
+    if (result === 0) {
+      return res
+        .status(404)
+        .json({ message: `Expense item with ID ${expenseId} not found` });
+    }
+
+    res.sendStatus(204);
+  } catch (error) {
+    res.status(500).json({
+      message: `Unable to delete Expense item: ${error}`,
+    });
+  }
+};
+
 module.exports = {
   getAllExpensesByPocketId,
   getExpenseByPocketId,
   getExpensesProfiles,
   addExpense,
   addExpenseProfile,
+  updateExpense,
+  deleteExpense,
 };

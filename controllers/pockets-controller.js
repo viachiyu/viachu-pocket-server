@@ -69,9 +69,32 @@ const addPocketProfile = async (req, res) => {
   }
 };
 
+const deletePocket = async (req, res) => {
+  const { pocketId } = req.params;
+
+  try {
+    await knex("expense").where({ pocket_id: pocketId }).del();
+    await knex("pockets_profile").where({ pocket_id: pocketId }).del();
+    const result = await knex("pockets").where({ id: pocketId }).del();
+
+    if (result === 0) {
+      return res
+        .status(404)
+        .json({ message: `Pocket item with ID ${pocketId} not found` });
+    }
+
+    res.sendStatus(204);
+  } catch (error) {
+    res.status(500).json({
+      message: `Unable to delete Pocket item: ${error}`,
+    });
+  }
+};
+
 module.exports = {
   getAllPockets,
   getPocket,
   addPocket,
   addPocketProfile,
+  deletePocket,
 };
