@@ -21,9 +21,11 @@ const getExpensesProfiles = async (req, res) => {
       .join("expense", "expense_profile.expense_id", "expense.id")
       .where("expense.pocket_id", pocketId)
       .select(
+        "profile.id as profile_id",
         "profile.name as profile_name",
         "expense.id as expense_id",
-        "expense.single_expense"
+        "expense.single_expense",
+        "expense.profile_id as paid_by"
       );
     res.status(200).json(expensesProfiles);
   } catch (error) {
