@@ -1,0 +1,81 @@
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+exports.seed = async function (knex) {
+  await knex("expense").del();
+  await knex("expense").insert([
+    {
+      id: 1,
+      name: "Uber to the Strip",
+      date: "23-05-16",
+      total_expense: 90,
+      split_even: true,
+      headcount: 5,
+      single_expense: 18,
+      pocket_id: 1,
+      category_id: 1,
+      profile_id: 1,
+    },
+    {
+      id: 2,
+      name: "Uber to airbnb",
+      date: "23-05-17",
+      total_expense: 80,
+      split_even: true,
+      headcount: 4,
+      single_expense: 20,
+      pocket_id: 1,
+      category_id: 1,
+      profile_id: 1,
+    },
+    {
+      id: 3,
+      name: "Drinks at Bar",
+      date: "23-05-18",
+      total_expense: 44,
+      split_even: true,
+      headcount: 2,
+      single_expense: 22,
+      pocket_id: 1,
+      category_id: 2,
+      profile_id: 4,
+    },
+    {
+      id: 4,
+      name: "SkyDiving",
+      date: "23-05-20",
+      total_expense: 888,
+      split_even: true,
+      headcount: 4,
+      single_expense: 222,
+      pocket_id: 1,
+      category_id: 4,
+      profile_id: 1,
+    },
+    {
+      id: 5,
+      name: "KBBQ",
+      date: "23-05-21",
+      total_expense: 400,
+      split_even: true,
+      headcount: 5,
+      single_expense: 80,
+      pocket_id: 1,
+      category_id: 3,
+      profile_id: 2,
+    },
+    {
+      id: 6,
+      name: "NYC Airbnb!",
+      date: "23-09-01",
+      total_expense: 1200,
+      split_even: true,
+      headcount: 4,
+      single_expense: 300,
+      pocket_id: 2,
+      category_id: 5,
+      profile_id: 8,
+    },
+  ]);
+};
