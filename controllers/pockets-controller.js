@@ -2,8 +2,14 @@ const knex = require("knex")(require("../knexfile"));
 
 const getAllPockets = async (req, res) => {
   try {
-    const data = await knex("pockets");
-    res.status(200).json(data);
+    const profile_id = req.profile_id;
+
+    const pockets = await knex("pockets")
+      .join("pockets_profile", "pockets.id", "=", "pockets_profile.pocket_id")
+      .where("pockets_profile.profile_id", profile_id)
+      .select("pockets.*");
+
+    res.status(200).json(pockets);
   } catch (err) {
     res.status(400).send(`Error retrieving pockets: ${err}`);
   }
