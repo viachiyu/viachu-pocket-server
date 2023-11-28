@@ -48,6 +48,11 @@ router
   .get(expenseController.getExpensesProfiles);
 
 router
+  .route("/:pocketId/expensesprofiles/:expenseId")
+  .get(expenseController.getExpensesProfilesById)
+  .put(expenseController.updateExpenseProfileofExpenseId);
+
+router
   .route("/:pocketId/expenses/:expenseId")
   .get(expenseController.getExpenseByPocketId)
   .put(expenseController.updateExpense)
