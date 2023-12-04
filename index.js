@@ -7,6 +7,10 @@ const pocketsRoutes = require("./routes/pockets-routes");
 const authRoutes = require("./routes/auth-routes");
 const categoryRoutes = require("./routes/categories-routes");
 
+app.get("/", (req, res) => {
+  res.redirect("/login");
+});
+
 app.use(cors());
 app.use(express.json());
 
