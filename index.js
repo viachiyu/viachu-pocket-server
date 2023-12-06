@@ -15,7 +15,7 @@ app.use((_req, _res, next) => {
   next();
 });
 
-app.use("pockets", pocketsRoutes);
+app.use("/pockets", pocketsRoutes);
 app.use("/auth", authRoutes);
 app.use("/categories", categoryRoutes);
 
