@@ -29,27 +29,29 @@ const addProfile = async (req, res) => {
 
 const profileLogIn = async (req, res) => {
   const { email, password } = req.body;
+  try {
+    if (!email || !password) {
+      return res.status(404).send("Please enter the required fields");
+    }
+    const profile = await knex("profile").where({ email: email }).first();
+    if (!profile) {
+      return res.status(400).send("Invalid email");
+    }
 
-  if (!email || !password) {
-    return res.status(404).send("Please enter the required fields");
+    const isPasswordCorrect = bcrypt.compareSync(password, profile.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(400).send("Invalid password");
+    }
+    const token = jwt.sign(
+      { id: profile.id, email: profile.email },
+      process.env.JWT_KEY,
+      { expiresIn: "24h" }
+    );
+    res.send({ token });
+  } catch (err) {
+    res.status(500).send(`Unable to login: ${err}`);
   }
-  const profile = await knex("profile").where({ email: email }).first();
-  if (!profile) {
-    return res.status(400).send("Invalid email");
-  }
-
-  const isPasswordCorrect = bcrypt.compareSync(password, profile.password);
-
-  if (!isPasswordCorrect) {
-    return res.status(400).send("Invalid password");
-  }
-  const token = jwt.sign(
-    { id: profile.id, email: profile.email },
-    process.env.JWT_KEY,
-    { expiresIn: "24h" }
-  );
-
-  res.send({ token });
 };
 
 module.exports = {
